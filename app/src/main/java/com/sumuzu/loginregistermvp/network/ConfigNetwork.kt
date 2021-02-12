@@ -9,7 +9,8 @@ class ConfigNetwork {
 
         fun getNetwork(): UserService{
             val retrofit = Retrofit.Builder()
-                .baseUrl("http://192.168.0.36/loginregistermvp/")
+//                .baseUrl("http://192.168.0.36/loginregistermvp/")
+                .baseUrl("http://192.168.43.150/loginregistermvp/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
 
