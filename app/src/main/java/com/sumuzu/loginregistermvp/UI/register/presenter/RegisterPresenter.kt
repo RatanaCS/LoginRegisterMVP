@@ -8,13 +8,22 @@ import retrofit2.Response
 
 class RegisterPresenter(val registerView : RegisterView) {
 
-    fun regsiter(nama: String, email: String, password: String, passConfirm: String, nohp: String){
+    fun register(nama: String, email: String, password: String, passConfirm: String, nohp: String){
+
+        registerView.startProgressBar()
 
         if(nama.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty() && passConfirm.isNotEmpty() && nohp.isNotEmpty()) {
 
+            registerView.hideProgressBar()
+
             if(password != passConfirm){
                 registerView.noMatch()
-            }else{
+                registerView.hideProgressBar()
+            }else if(password.length < 6){
+                registerView.errorRegister("password minimal 6 karakter")
+                registerView.hideProgressBar()
+            } else{
+//                registerView.hideProgressBar()
                 ConfigNetwork.getNetwork().register(nama, email, password, nohp)
                     .enqueue(object : Callback<ResponseRegister> {
                         override fun onResponse(
@@ -24,6 +33,9 @@ class RegisterPresenter(val registerView : RegisterView) {
 
 
                             if (response.isSuccessful) {
+
+
+
                                 val responseServer = response.body()
                                 val message = response.body()?.message
                                 val status = response.body()?.isSuccess
@@ -34,6 +46,8 @@ class RegisterPresenter(val registerView : RegisterView) {
                                     registerView.errorRegister(message ?: "")
                                 }
 
+                                registerView.hideProgressBar()
+
                             }
 
 
@@ -41,12 +55,14 @@ class RegisterPresenter(val registerView : RegisterView) {
 
                         override fun onFailure(call: Call<ResponseRegister>, t: Throwable) {
                             registerView.errorRegister(t.localizedMessage)
+                            registerView.hideProgressBar()
                         }
                     })
             }
 
         }else{
             registerView.empty()
+            registerView.hideProgressBar()
         }
 
     }

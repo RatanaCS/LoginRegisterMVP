@@ -3,6 +3,7 @@ package com.sumuzu.loginregistermvp.UI.register.view
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import com.sumuzu.loginregistermvp.R
 import com.sumuzu.loginregistermvp.UI.login.view.LoginActivity
@@ -30,7 +31,7 @@ class RegisterActivity : AppCompatActivity(), RegisterView {
             val passwordConfirm = etPasswordConfirm.text.toString()
             val noHp = etHP.text.toString()
 
-            presenter?.regsiter(nama, email, password, passwordConfirm, noHp)
+            presenter?.register(nama, email, password, passwordConfirm, noHp)
 
         }
 
@@ -50,6 +51,14 @@ class RegisterActivity : AppCompatActivity(), RegisterView {
 
     override fun noMatch() {
         showToast("password tidak cocok")
+    }
+
+    override fun startProgressBar() {
+        progressBar.visibility = View.VISIBLE
+    }
+
+    override fun hideProgressBar() {
+        progressBar.visibility = View.GONE
     }
 
     fun showToast(msg : String){

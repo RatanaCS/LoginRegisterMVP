@@ -8,5 +8,7 @@ interface RegisterView {
     fun errorRegister(msg : String)
     fun empty()
     fun noMatch()
+    fun startProgressBar()
+    fun hideProgressBar()
 
 }
