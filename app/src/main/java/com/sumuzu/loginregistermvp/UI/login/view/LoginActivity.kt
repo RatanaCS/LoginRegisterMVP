@@ -10,6 +10,7 @@ import com.sumuzu.loginregistermvp.UI.login.model.DataItem
 import com.sumuzu.loginregistermvp.UI.login.presenter.LoginPresenter
 import com.sumuzu.loginregistermvp.UI.login.presenter.LoginView
 import com.sumuzu.loginregistermvp.UI.register.view.RegisterActivity
+import com.sumuzu.loginregistermvp.helper.SessionManager
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity(), LoginView {
@@ -38,6 +39,13 @@ class LoginActivity : AppCompatActivity(), LoginView {
     }
 
     override fun successLogin(msg: String, user: List<DataItem?>) {
+
+        val session = SessionManager(this)
+        session.email=user.get(0)?.userEmail
+        session.nama=user.get(0)?.userNama
+        session.hp=user.get(0)?.userHp
+        session.login = true
+
         startActivity(Intent(this, MainActivity::class.java))
         finish()
     }
