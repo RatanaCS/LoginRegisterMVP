@@ -5,11 +5,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import com.sumuzu.loginregistermvp.MainActivity
 import com.sumuzu.loginregistermvp.R
 import com.sumuzu.loginregistermvp.UI.login.view.LoginActivity
 import com.sumuzu.loginregistermvp.UI.register.model.ResponseRegister
 import com.sumuzu.loginregistermvp.UI.register.presenter.RegisterPresenter
 import com.sumuzu.loginregistermvp.UI.register.presenter.RegisterView
+import com.sumuzu.loginregistermvp.helper.SessionManager
 import kotlinx.android.synthetic.main.activity_register.*
 
 class RegisterActivity : AppCompatActivity(), RegisterView {
@@ -38,7 +40,8 @@ class RegisterActivity : AppCompatActivity(), RegisterView {
     }
 
     override fun successRegister(response: ResponseRegister) {
-        startActivity(Intent(this, LoginActivity::class.java))
+        startActivity(Intent(this, MainActivity::class.java))
+        finish()
     }
 
     override fun errorRegister(msg: String) {
